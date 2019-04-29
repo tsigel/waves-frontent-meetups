@@ -1,10 +1,11 @@
-import { IPipe, ICompose, ICurry, IFilter, IWhereEq } from './interface';
-import { pipe, compose } from './index';
+import { IPipe, ICompose, ICurry, IFilter, IWhereEq, IToPairs } from './interface';
+import { pipe, compose, curry, toPairs } from './index';
 
 // declare const compose: ICompose;
-declare const curry: ICurry;
+// declare const curry: ICurry;
 declare const filter: IFilter;
 declare const whereEq: IWhereEq;
+// declare const toPairs: IToPairs;
 
 
 describe('Meetup 29.04.2019', () => {
@@ -60,6 +61,17 @@ describe('Meetup 29.04.2019', () => {
 
         expect(one).toBe(1);
         expect(empty).toBe(undefined);
+    });
+
+    it('toPairs', () => {
+
+        const data = {a: 1, b: '2', c: true, d: [1,2,3]};
+        expect(toPairs(data)).toEqual([
+            ['a', 1],
+            ['b', '2'],
+            ['c', true],
+            ['d', [1,2,3]]
+        ]) // TODO Fix test!
     });
 
     // TODO Add tests for filter and  whereEq
