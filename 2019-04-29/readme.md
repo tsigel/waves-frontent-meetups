@@ -13,3 +13,5 @@
 - curry
 - filter
 - whereEq
+
+[Документация](https://ramdajs.com/docs/)

@@ -1,8 +1,7 @@
 import { IPipe, ICompose, ICurry, IFilter, IWhereEq } from './interface';
+import { pipe, compose } from './index';
 
-
-declare const pipe: IPipe;
-declare const compose: ICompose;
+// declare const compose: ICompose;
 declare const curry: ICurry;
 declare const filter: IFilter;
 declare const whereEq: IWhereEq;
