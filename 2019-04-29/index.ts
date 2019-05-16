@@ -11,17 +11,16 @@ export const compose: ICompose = (...funcList: Array<(data: any) => any>) =>
 export const toPairs = <T>(data: T): Array<[keyof T, T[keyof T]]> =>
     Object.keys(data).map(key => [key as keyof T, data[key]]);
 
-// TODO Fix curry!
 export const curry: any = (cb: (...args: Array<any>) => any) => {
     const maxLength = cb.length;
-    const args = [];
 
-    function loop(...newArgs) {
-        args.push(...newArgs);
+    function loop(...args: any[]) {
         if (args.length >= maxLength) {
             return cb(...args);
         } else {
-            return loop;
+            return (...moreArgs: any) => {
+                return cb(...[...args, ...moreArgs]);
+            };
         }
     }
 
