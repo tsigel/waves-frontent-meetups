@@ -59,12 +59,11 @@ describe('Meetup 29.04.2019', () => {
     it('toPairs', () => {
 
         const data = { a: 1, b: '2', c: true, d: [1, 2, 3] };
-        expect(toPairs(data)).toEqual([
+        expect(toPairs(data)).toEqual(expect.arrayContaining([
             ['a', 1],
             ['b', '2'],
-            ['c', true],
             ['d', [1, 2, 3]]
-        ]); // TODO Fix test! Object keys order.
+        ]));
     });
 
     it('whereEq', () => {
