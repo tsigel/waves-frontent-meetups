@@ -59,11 +59,36 @@ describe('Meetup 29.04.2019', () => {
     it('toPairs', () => {
 
         const data = { a: 1, b: '2', c: true, d: [1, 2, 3] };
-        expect(toPairs(data)).toEqual(expect.arrayContaining([
+        
+        const arr1 = [
+            ['a', 1],
+            ['b', '2'],
+            ['c', true],
+            ['d', [1, 2, 3]]
+        ];
+        
+        const arr2 = [
+            ['a', 1],
+            ['c', true],
+            ['b', '2'],
+            ['d', [1, 2, 3]]
+        ];
+        
+        const arr3 = [
             ['a', 1],
             ['b', '2'],
             ['d', [1, 2, 3]]
-        ]));
+        ];
+
+        expect(toPairs(data)).toEqual(expect.arrayContaining(arr1));
+        expect(arr1).toHaveLength(Object.keys(toPairs(data)).length);
+
+        expect(toPairs(data)).toEqual(expect.arrayContaining(arr2));
+        expect(arr2).toHaveLength(Object.keys(toPairs(data)).length);
+
+        expect(toPairs(data)).toEqual(expect.arrayContaining(arr3));
+        expect(arr3).not.toHaveLength(Object.keys(toPairs(data)).length);
+
     });
 
     it('whereEq', () => {
