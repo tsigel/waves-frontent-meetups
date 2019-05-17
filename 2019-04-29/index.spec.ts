@@ -1,4 +1,4 @@
-import { pipe, compose, curry, toPairs } from './index';
+import { pipe, compose, curry, toPairs, whereEq, filter } from './index';
 
 
 describe('Meetup 29.04.2019', () => {
@@ -67,5 +67,27 @@ describe('Meetup 29.04.2019', () => {
         ]); // TODO Fix test! Object keys order.
     });
 
-    // TODO Add tests for filter and  whereEq
+    it('whereEq', () => {
+        const data = { a: 1, b: '2', c: true };
+        const item1 = { a: 1, b: '2', c: true };
+        const item2 = { a: 1, b: '2', c: true, d: 5 };
+        const item3 = { a: 1, b: '3', c: true };
+        const item4 = { a: 1, b: '2', c: false };
+
+        expect(whereEq(data)(item1)).toBe(true);
+        expect(whereEq(data)(item2)).toBe(true);
+        expect(whereEq(data, item2)).toBe(true);
+        expect(whereEq(data)(item3)).toBe(false);
+        expect(whereEq(data, item3)).toBe(false);
+        expect(whereEq(data)(item4)).toBe(false);
+    });
+
+    it('filter', () => {
+        const array = [1, true, null, 'qwerty', undefined, '932', 0, 'preved'];
+
+        const isString = value => typeof value === 'string';
+
+        expect(filter(isString)(array)).toEqual(['qwerty', '932', 'preved']);
+        expect(filter(isString, array)).toEqual(['qwerty', '932', 'preved']);
+    });
 });
