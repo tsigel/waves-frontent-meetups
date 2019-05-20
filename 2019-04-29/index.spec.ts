@@ -59,7 +59,18 @@ describe('Meetup 29.04.2019', () => {
     it('toPairs', () => {
 
         const data = { b: '2', a: 1, c: true, d: [1, 2, 3] };
-        expect(toPairs(data).sort()).toEqual([
+
+        const sortFunc = (itemA, itemB) => {
+            if (itemA[0] < itemB[0]) {
+                return -1;
+            } else if (itemA[0] > itemB[0]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        expect(toPairs(data).sort(sortFunc)).toEqual([
             ['a', 1],
             ['b', '2'],
             ['c', true],
