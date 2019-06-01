@@ -1,21 +1,4 @@
-class Signal<T> {
-    public on(callback: (data: T) => any): void {
-        return void 0;
-    }
-
-    public once(callback: (data: T) => any): void {
-        return void 0;
-    }
-
-    public off(callback?: (data: T) => any): void {
-        return void 0;
-    }
-
-    public dispatch(data: T): void {
-        return void 0;
-    }
-}
-
+import { Signal } from './Signal'
 
 describe('Signal', () => {
 
@@ -67,7 +50,7 @@ describe('Signal', () => {
             signal.on(h2);
             signal.on(h2);
             signal.dispatch(null);
-            signal.off(h1);
+            signal.off(h1); 
             signal.dispatch(null);
             signal.off(h2);
             expect(ok).toBe(true);

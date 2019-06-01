@@ -1,5 +1,13 @@
 import { IPipe, ICompose, IWhereEq, IFilter } from './interface';
 
+(Function.prototype as any).mybind = function (ctx) {
+    const args = Array.prototype.slice.call(arguments, 1);
+    const func = this;
+    return function () {
+        const newArgs = Array.prototype.slice.call(arguments);
+        return func.apply(ctx, args.concat(newArgs));
+    }
+};
 
 export const pipe: IPipe = (...funcList: Array<(data: any) => any>) =>
     (data: any) =>
@@ -11,21 +19,17 @@ export const compose: ICompose = (...funcList: Array<(data: any) => any>) =>
 export const toPairs = <T>(data: T): Array<[keyof T, T[keyof T]]> =>
     Object.keys(data).map(key => [key as keyof T, data[key]]);
 
-// TODO Fix curry!
 export const curry: any = (cb: (...args: Array<any>) => any) => {
-    const maxLength = cb.length;
-    const args = [];
 
-    function loop(...newArgs) {
-        args.push(...newArgs);
-        if (args.length >= maxLength) {
+    function loop(cb, ...args) {
+        if (args.length >= cb.length) {
             return cb(...args);
         } else {
-            return loop;
+            return (...newArgs) => loop(cb, ...args.concat(newArgs));
         }
     }
 
-    return loop;
+    return (...args) => loop(cb, ...args);
 };
 
 export const whereEq: IWhereEq = curry((data: any, item: any) =>

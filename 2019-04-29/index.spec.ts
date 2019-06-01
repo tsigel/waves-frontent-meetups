@@ -1,4 +1,4 @@
-import { pipe, compose, curry, toPairs } from './index';
+import { pipe, compose, curry, toPairs, filter, whereEq } from './index';
 
 
 describe('Meetup 29.04.2019', () => {
@@ -58,14 +58,42 @@ describe('Meetup 29.04.2019', () => {
 
     it('toPairs', () => {
 
-        const data = { a: 1, b: '2', c: true, d: [1, 2, 3] };
-        expect(toPairs(data)).toEqual([
+        const data = { b: '2', a: 1, c: true, d: [1, 2, 3] };
+
+        const sortFunc = (itemA, itemB) => {
+            if (itemA[0] < itemB[0]) {
+                return -1;
+            } else if (itemA[0] > itemB[0]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        expect(toPairs(data).sort(sortFunc)).toEqual([
             ['a', 1],
             ['b', '2'],
             ['c', true],
             ['d', [1, 2, 3]]
-        ]); // TODO Fix test! Object keys order.
+        ]);
     });
 
-    // TODO Add tests for filter and  whereEq
+    it('filter', () => {
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
+        const lessThen5 = (number) => number < 5;
+
+        expect(filter(lessThen5, numbers)).toEqual([0, 1, 2, 3, 4]);
+        expect(filter(lessThen5)(numbers)).toEqual([0, 1, 2, 3, 4]);
+    });
+
+    it('whereEq', () => {
+        const data = { a: 'a', b: 'b' };
+        const itemTrue = { a: 'a', b: 'b', c: 'c' };
+        const itemFalse = { a: 'b', b: 'b'};
+
+        expect(whereEq(data, itemTrue)).toBe(true);
+        expect(whereEq(data)(itemTrue)).toBe(true);
+        expect(whereEq(data, itemFalse)).toBe(false);
+        expect(whereEq(data)(itemFalse)).toBe(false);
+    });
 });
