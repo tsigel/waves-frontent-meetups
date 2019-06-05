@@ -19,7 +19,7 @@ export const curry: any = (cb: (...args: Array<any>) => any) => {
             return cb(...args);
         } else {
             return (...moreArgs: any) => {
-                return cb(...[...args, ...moreArgs]);
+                return loop(...[...args, ...moreArgs]);
             };
         }
     }

@@ -52,8 +52,19 @@ describe('Meetup 29.04.2019', () => {
         const one = getType({ type: 1 });
         const empty = getType({});
 
+        const summ = (a, b, c) => a + b + c;
+
+        const curryFoo = curry(summ);
+        const ten = curryFoo(2, 3, 5);
+        const ten2 = curryFoo(2, 3)(5);
+        const ten3 = curryFoo(2)(3)(5);
+
         expect(one).toBe(1);
         expect(empty).toBe(undefined);
+
+        expect(ten).toBe(10);
+        expect(ten2).toBe(10);
+        expect(ten3).toBe(10);
     });
 
     it('toPairs', () => {
