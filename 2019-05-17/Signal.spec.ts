@@ -1,20 +1,22 @@
-class Signal<T> {
-    public on(callback: (data: T) => any): void {
-        return void 0;
-    }
+import Signal from './Signal'
 
-    public once(callback: (data: T) => any): void {
-        return void 0;
-    }
+// class Signal<T> {
+//     public on(callback: (data: T) => any): void {
+//         return void 0;
+//     }
 
-    public off(callback?: (data: T) => any): void {
-        return void 0;
-    }
+//     public once(callback: (data: T) => any): void {
+//         return void 0;
+//     }
 
-    public dispatch(data: T): void {
-        return void 0;
-    }
-}
+//     public off(callback?: (data: T) => any): void {
+//         return void 0;
+//     }
+
+//     public dispatch(data: T): void {
+//         return void 0;
+//     }
+// }
 
 
 describe('Signal', () => {
