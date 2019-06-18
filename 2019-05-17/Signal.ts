@@ -1,15 +1,19 @@
 export default class Signal<T> {
 
-    private handlers: Array<any> = [];
+    private handlers: Array<{ callback: (data: T) => any, once: boolean }> = [];
 
     public on(callback: (data: T) => any): void {
-        this.handlers.push({ callback });
+        this.handlers.push({
+            callback,
+            once: false
+         });
     }
 
     public once(callback: (data: T) => any): void {
-        const onceFunc = () => this.off(callback);
-        this.on(callback);
-        this.on(onceFunc);
+        this.handlers.push({
+            callback,
+            once: true
+         });
     }
 
     public off(callback?: (data: T) => any): void {
@@ -22,6 +26,11 @@ export default class Signal<T> {
     }
 
     public dispatch(data: T): void {
-        this.handlers.forEach(obj => obj.callback(data));
+        this.handlers.forEach(obj => {
+            obj.callback(data)
+            if (obj.once) {
+                this.off(obj.callback)
+            }
+        });
     }
 }
